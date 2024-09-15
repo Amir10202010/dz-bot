@@ -19,6 +19,7 @@ def install_fonts():
     ]
 
     font_dir = 'fonts'
+    spire.xls.Workbook.CustomFontFileDirectory = font_dir
     if not os.path.exists(font_dir):
         os.makedirs(font_dir)
         
