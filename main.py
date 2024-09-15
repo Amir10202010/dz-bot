@@ -1,9 +1,9 @@
 import os
 import datetime 
-import win32com.client
+from spire.xls import *
+from spire.xls.common import *
 from openpyxl import load_workbook
 from openpyxl.cell import MergedCell
-from PIL import ImageGrab
 from datetime import datetime, timedelta, date
 
 days_of_week = {
@@ -83,47 +83,37 @@ def process_excel_file(number):
 def after_text_editing(number):
     week_number = get_week_number() + number
     img_filename = f"week-{week_number}.jpg"
-    dir = os.path.dirname(__file__)
-    
+
     if os.path.exists(img_filename):
-        os.remove(f"week-{week_number}.jpg")
-    
+        os.remove(img_filename)
+
     process_excel_file(number)
 
-    o = win32com.client.Dispatch('Excel.Application')
-    o.visible = False
 
-    wb = o.Workbooks.Open(f'{dir}/dz.xlsx')
-    ws = wb.Worksheets[f'week-{week_number}']
-
-    ws.Range(ws.Cells(1,1),ws.Cells(10,9)).Copy()  
-    img = ImageGrab.grabclipboard()
-    imgFile = os.path.join(dir, f'week-{week_number}.jpg')
-    img.save(imgFile)
-    wb.Close()
+    workbook = Workbook()
+    workbook.LoadFromFile('dz.xlsx')
+    sheet = workbook.Worksheets[f"week-{week_number}"]
+    image = sheet.ToImage(1, 1, 10, 9)
+    image.Save("CellRangeToImage.png")
+    workbook.Dispose()
 
 
 def create_image_from_excel(number):
     week_number = get_week_number() + number
     img_filename = f"week-{week_number}.jpg"
-    dir = os.path.dirname(__file__)
-    
+
     if os.path.exists(img_filename):
-        return
-    
+        os.remove(img_filename)
+
     process_excel_file(number)
 
-    o = win32com.client.Dispatch('Excel.Application')
-    o.visible = False
 
-    wb = o.Workbooks.Open(f'{dir}/dz.xlsx')
-    ws = wb.Worksheets[f'week-{week_number}']
-
-    ws.Range(ws.Cells(1,1),ws.Cells(10,9)).Copy()  
-    img = ImageGrab.grabclipboard()
-    imgFile = os.path.join(dir, f'week-{week_number}.jpg')
-    img.save(imgFile)
-    wb.Close()
+    workbook = Workbook()
+    workbook.LoadFromFile('dz.xlsx')
+    sheet = workbook.Worksheets[f"week-{week_number}"]
+    image = sheet.ToImage(1, 1, 10, 9)
+    image.Save(img_filename)
+    workbook.Dispose()
 
 
 def dz_for_day(day, number, group):
