@@ -89,9 +89,9 @@ def after_text_editing(number):
         os.remove(img_filename)
 
     process_excel_file(number)
-
-
+    
     workbook = Workbook()
+    workbook.DefaultFontName = "Calibri"
     workbook.LoadFromFile('dz.xlsx')
     sheet = workbook.Worksheets[f"week-{week_number}"]
     image = sheet.ToImage(1, 1, 10, 9)
@@ -109,6 +109,7 @@ def create_image_from_excel(number):
     process_excel_file(number)
     
     workbook = Workbook()
+    workbook.DefaultFontName = "Calibri"
     workbook.LoadFromFile('dz.xlsx')
     sheet = workbook.Worksheets[f"week-{week_number}"]
     image = sheet.ToImage(1, 1, 10, 9)
