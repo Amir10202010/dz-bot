@@ -15,6 +15,7 @@ async def start(message: Message):
     await message.answer_photo(photo=FSInputFile(path='photo1.jpg'), caption=f'Привет <b>{message.from_user.first_name}</b>,\nЭто бот чтобы узнать домашку 📖✍️', reply_markup=kb.start, parse_mode='html')
     users[message.from_user.id] = {'week': 0, 'day': 0, 'group': 2, 'subject': ''}
 
+
 @router.callback_query(F.data == 'dz')
 async def dz(callback: CallbackQuery):
     if callback.from_user.id == ADMIN_ID:
@@ -23,7 +24,7 @@ async def dz(callback: CallbackQuery):
         dzkb = kb.dz
     main.create_image_from_excel(users[callback.from_user.id]['week'])
     await callback.answer()
-    await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{main.get_week_number() + users[callback.from_user.id]['week']}.jpg')))
+    await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='week-%d.jpg' % (main.get_week_number() + users[callback.from_user.id]['week']))))
     await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
 
 
