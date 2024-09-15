@@ -1,4 +1,4 @@
-import spire.xls
+import Spire.Xls
 import asyncio
 from aiogram import Bot, Dispatcher
 from background import keep_alive
@@ -31,7 +31,7 @@ def install_fonts():
         print(f'Installed font: {font_name}')
     
     # Устанавливаем папку с шрифтами для Spire.Xls
-    spire.xls.FontSettings.SetFontsFolder(font_dir)
+    Spire.Xls.FontSettings.SetFontsFolder(font_dir)
     print(f'Set font folder: {font_dir}')
 
 async def main():
