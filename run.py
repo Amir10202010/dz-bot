@@ -30,9 +30,6 @@ def install_fonts():
             f.write(response.content)
         print(f'Installed font: {font_name}')
     
-    # Устанавливаем папку с шрифтами для Spire.Xls
-    spire.xls.FontSettings.SetFontsFolder(font_dir)
-    print(f'Set font folder: {font_dir}')
 
 async def main():
     dp.include_router(router)
