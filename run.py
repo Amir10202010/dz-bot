@@ -1,5 +1,4 @@
 import spire.xls
-import logging
 import asyncio
 from aiogram import Bot, Dispatcher
 from background import keep_alive
@@ -11,7 +10,7 @@ import requests
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
-# Устанавливаем шрифты
+
 def install_fonts():
     font_files = [
         'https://github.com/google/fonts/raw/master/apache/arial/Arial-Regular.ttf',
@@ -37,12 +36,9 @@ async def main():
     dp.include_router(router)
     await dp.start_polling(bot)
 
-logging.basicConfig(level=logging.INFO)
-
 if __name__ == '__main__':
     try:
         print('Запуск Бота')
-        logging.info('Starting bot...')
         install_fonts()
         keep_alive()
         asyncio.run(main())
