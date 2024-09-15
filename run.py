@@ -42,6 +42,7 @@ logging.basicConfig(level=logging.INFO)
 if __name__ == '__main__':
     try:
         print('Запуск Бота')
+        logging.info('Starting bot...')
         install_fonts()
         keep_alive()
         asyncio.run(main())
