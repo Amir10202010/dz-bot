@@ -46,14 +46,24 @@ async def plus_week(callback: CallbackQuery):
         users[callback.from_user.id]['week'] += 1
         main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{main.get_week_number() + users[callback.from_user.id]['week']}.jpg')))
-        await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='week-%d.jpg' % (main.get_week_number() + users[callback.from_user.id]['week']))))
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = main.dz_day(day, week)
+        dz_for_day_result = main.dz_for_day(day=day, number=week, group=group)
+        await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     else:
         users[callback.from_user.id]['week'] += 1
         main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{main.get_week_number() + users[callback.from_user.id]['week']}.jpg')))
-        await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='week-%d.jpg' % (main.get_week_number() + users[callback.from_user.id]['week']))))
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = main.dz_day(day, week)
+        dz_for_day_result = main.dz_for_day(day=day, number=week, group=group)
+        await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
 
 
 @router.callback_query(F.data == '-week')
@@ -69,15 +79,24 @@ async def minus_week(callback: CallbackQuery):
         users[callback.from_user.id]['week'] -= 1
         main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{main.get_week_number() + users[callback.from_user.id]['week']}.jpg')))
-        await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='week-%d.jpg' % (main.get_week_number() + users[callback.from_user.id]['week']))))
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = main.dz_day(day, week)
+        dz_for_day_result = main.dz_for_day(day=day, number=week, group=group)
+        await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     else:
         users[callback.from_user.id]['week'] -= 1
         main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{main.get_week_number() + users[callback.from_user.id]['week']}.jpg')))
-        await callback.message.edit_caption(caption=f'Вот д/з прошлой недели {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
-
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='week-%d.jpg' % (main.get_week_number() + users[callback.from_user.id]['week']))))
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = main.dz_day(day, week)
+        dz_for_day_result = main.dz_for_day(day=day, number=week, group=group)
+        await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
 
 @router.callback_query(F.data == '1')
 async def first_group(callback: CallbackQuery):
@@ -91,13 +110,19 @@ async def first_group(callback: CallbackQuery):
         users[callback.from_user.id]['group'] = 1
         main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{main.get_week_number() + users[callback.from_user.id]['week']}.jpg')))
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = main.dz_day(day, week)
+        dz_for_day_result = main.dz_for_day(day=day, number=week, group=group)
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='week-%d.jpg' % (main.get_week_number() + users[callback.from_user.id]['week']))))
         if users[callback.from_user.id]['week'] == 0:
-            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         elif users[callback.from_user.id]['week'] == 1:
-            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         else:
-            await callback.message.edit_caption(caption=f'Вот д/з прошлой недели {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
+
 
 @router.callback_query(F.data == '2')
 async def second_group(callback: CallbackQuery):
@@ -111,13 +136,18 @@ async def second_group(callback: CallbackQuery):
         users[callback.from_user.id]['group'] = 2
         main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{main.get_week_number() + users[callback.from_user.id]['week']}.jpg')))
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = main.dz_day(day, week)
+        dz_for_day_result = main.dz_for_day(day=day, number=week, group=group)
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='week-%d.jpg' % (main.get_week_number() + users[callback.from_user.id]['week']))))
         if users[callback.from_user.id]['week'] == 0:
-            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         elif users[callback.from_user.id]['week'] == 1:
-            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         else:
-            await callback.message.edit_caption(caption=f'Вот д/з прошлой недели {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
 
 
 @router.callback_query(F.data == '+day')
@@ -131,12 +161,17 @@ async def plus_day(callback: CallbackQuery):
             dzkb = kb.dz
         users[callback.from_user.id]['day'] += 1
         await callback.answer()
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = main.dz_day(day, week)
+        dz_for_day_result = main.dz_for_day(day=day, number=week, group=group)
         if users[callback.from_user.id]['week'] == 0:
-            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         elif users[callback.from_user.id]['week'] == 1:
-            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         else:
-            await callback.message.edit_caption(caption=f'Вот д/з прошлой недели {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
 
 
 @router.callback_query(F.data == '-day')
@@ -150,12 +185,17 @@ async def minus_day(callback: CallbackQuery):
             dzkb = kb.dz
         users[callback.from_user.id]['day'] -= 1
         await callback.answer()
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = main.dz_day(day, week)
+        dz_for_day_result = main.dz_for_day(day=day, number=week, group=group)
         if users[callback.from_user.id]['week'] == 0:
-            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         elif users[callback.from_user.id]['week'] == 1:
-            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         else:
-            await callback.message.edit_caption(caption=f'Вот д/з прошлой недели {main.dz_day(users[callback.from_user.id]['day'], users[callback.from_user.id]['week'])} {main.dz_for_day(day=users[callback.from_user.id]['day'], number=users[callback.from_user.id]['week'], group=users[callback.from_user.id]['group'])}', reply_markup=dzkb)
+            await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
 
 
 @router.callback_query(F.data == 'help')
