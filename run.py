@@ -3,7 +3,7 @@ from aiogram import Bot, Dispatcher
 from background import keep_alive
 from config import TOKEN
 from app.handlers import router
-import fonttools
+import fontTools
 import os
 import requests
 
