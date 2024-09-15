@@ -1,0 +1,7 @@
+flask 
+requests 
+openpyxl 
+aiogram 
+asyncio
+pywin32
+Pillow
