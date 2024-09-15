@@ -3,5 +3,4 @@ requests
 openpyxl 
 aiogram 
 asyncio
-pywin32
-Pillow
+spire.xls
