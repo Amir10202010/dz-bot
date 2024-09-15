@@ -94,7 +94,7 @@ def after_text_editing(number):
     workbook.LoadFromFile('dz.xlsx')
     sheet = workbook.Worksheets[f"week-{week_number}"]
     image = sheet.ToImage(1, 1, 10, 9)
-    image.Save("CellRangeToImage.png")
+    image.Save(img_filename)
     workbook.Dispose()
 
 
@@ -103,7 +103,7 @@ def create_image_from_excel(number):
     img_filename = f"week-{week_number}.jpg"
 
     if os.path.exists(img_filename):
-        os.remove(img_filename)
+        return
 
     process_excel_file(number)
 
