@@ -203,6 +203,7 @@ async def help(callback: CallbackQuery):
     await callback.answer()
     await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='photo2.jpg')))
     await callback.message.edit_caption(caption='Тут все просто,\nУзнаешь дз класса 9E НИШ ФМН Астана 🏫.\nCreator - @Idk_Amir', reply_markup=kb.back_help)
+    print(users)
 
 
 @router.callback_query(F.data == 'back_help')
