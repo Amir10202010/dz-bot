@@ -31,6 +31,7 @@ def install_fonts():
         response = requests.get(font_file)
         with open(font_path, 'wb') as f:
             f.write(response.content)
+        print(f'Installed font: {font_name}')
 
 if __name__ == '__main__':
     try:
