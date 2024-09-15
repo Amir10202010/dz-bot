@@ -36,6 +36,8 @@ async def main():
     dp.include_router(router)
     await dp.start_polling(bot)
 
+logging.basicConfig(level=logging.INFO)
+
 if __name__ == '__main__':
     try:
         print('Запуск Бота')
