@@ -105,11 +105,9 @@ def create_image_from_excel(number):
 
     if os.path.exists(img_filename):
         return
-
-    logging.info(f"Processing Excel file for week {week_number}")
+        
     process_excel_file(number)
-
-    logging.info(f"Creating image for week {week_number}")
+    
     workbook = Workbook()
     workbook.LoadFromFile('dz.xlsx')
     sheet = workbook.Worksheets[f"week-{week_number}"]
