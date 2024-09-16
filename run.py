@@ -20,9 +20,6 @@ if __name__ == '__main__':
         zip_file = 'Fonts.rar'
         with zipfile.ZipFile("Fonts.zip","r") as zip_ref:
             zip_ref.extractall(os.getcwd())
-        font_dir = os.path.join(os.getcwd(), 'Fonts')
-        workbook = spire.xls.Workbook()
-        workbook.CustomFontFileDirectory = font_dir
         keep_alive()
         print(os.listdir())
         asyncio.run(main())
