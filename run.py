@@ -2,6 +2,7 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from config import TOKEN
 from app.handlers import router
+from background import keep_alive
 import os
 import zipfile
 import spire.xls
@@ -22,7 +23,7 @@ if __name__ == '__main__':
         font_dir = os.path.join(os.getcwd(), 'Fonts')
         workbook = spire.xls.Workbook()
         workbook.CustomFontFileDirectory = font_dir
-
+        keep_alive()
         asyncio.run(main())
     except KeyboardInterrupt:
         print('Завершение Бота')
