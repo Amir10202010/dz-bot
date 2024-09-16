@@ -24,6 +24,7 @@ if __name__ == '__main__':
         workbook = spire.xls.Workbook()
         workbook.CustomFontFileDirectory = font_dir
         keep_alive()
+        print(os.listdir())
         asyncio.run(main())
     except KeyboardInterrupt:
         print('Завершение Бота')
