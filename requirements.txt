@@ -4,3 +4,4 @@ openpyxl
 aiogram 
 asyncio
 spire.xls
+rarfile
