@@ -3,6 +3,7 @@ from aiogram import Bot, Dispatcher
 from config import TOKEN
 from app.handlers import router
 import os
+import zipfile
 import spire.xls
 
 bot = Bot(token=TOKEN)
@@ -15,9 +16,9 @@ async def main():
 if __name__ == '__main__':
     try:
         print('Запуск Бота')
-
         zip_file = 'Fonts.rar'
-
+        with zipfile.ZipFile("Fonts.zip","r") as zip_ref:
+            zip_ref.extractall(os.getcwd())
         font_dir = os.path.join(os.getcwd(), 'Fonts')
         workbook = spire.xls.Workbook()
         workbook.CustomFontFileDirectory = font_dir
