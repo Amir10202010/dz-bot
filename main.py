@@ -91,6 +91,8 @@ def after_text_editing(number):
     process_excel_file(number)
     
     workbook = Workbook()
+    font_dir = os.path.join(os.getcwd(), 'Fonts')
+    workbook.CustomFontFileDirectory = font_dir
     workbook.LoadFromFile('dz.xlsx')
     sheet = workbook.Worksheets[f"week-{week_number}"]
     image = sheet.ToImage(1, 1, 10, 9)
@@ -108,6 +110,8 @@ def create_image_from_excel(number):
     process_excel_file(number)
     
     workbook = Workbook()
+    font_dir = os.path.join(os.getcwd(), 'Fonts')
+    workbook.CustomFontFileDirectory = font_dir
     workbook.LoadFromFile('dz.xlsx')
     sheet = workbook.Worksheets[f"week-{week_number}"]
     image = sheet.ToImage(1, 1, 10, 9)
