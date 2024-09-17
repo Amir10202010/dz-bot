@@ -22,8 +22,6 @@ months = {
     7: 'Июля', 8: 'Августа', 9: 'Сентября', 10: 'Октября', 11: 'Ноября', 12: 'Декабря'
 }
 
-print(os.listdir(os.path.join(os.getcwd(), 'Fonts')))
-
 def parser_merged_cell(sheet, cell):
     if isinstance(cell, MergedCell):
         for merged_range in sheet.merged_cells.ranges:
