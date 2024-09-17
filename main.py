@@ -111,6 +111,7 @@ def create_image_from_excel(number):
     
     workbook = Workbook()
     font_dir = os.path.join(os.getcwd(), 'Fonts')
+    print(os.listdir(font_dir))
     workbook.CustomFontFileDirectory = font_dir
     workbook.LoadFromFile('dz.xlsx')
     sheet = workbook.Worksheets[f"week-{week_number}"]
