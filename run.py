@@ -17,7 +17,6 @@ async def main():
 if __name__ == '__main__':
     try:
         print('Запуск Бота')
-        zip_file = 'Fonts.zip'
         with zipfile.ZipFile("Fonts.zip","r") as zip_ref:
             zip_ref.extractall(os.getcwd())
         keep_alive()
