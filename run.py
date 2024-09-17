@@ -23,6 +23,7 @@ if __name__ == '__main__':
             zip_deng.extractall(os.path.join(os.getcwd(), "Fonts"))
         keep_alive()
         print(os.listdir())
+        print(os.listdir(os.path.join(os.getcwd(), 'Fonts')))
         asyncio.run(main())
     except KeyboardInterrupt:
         print('Завершение Бота')
