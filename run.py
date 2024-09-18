@@ -17,12 +17,10 @@ async def main():
 if __name__ == '__main__':
     try:
         print('Запуск Бота')
-        with zipfile.ZipFile("Fonts.zip","r") as zip_fonts:
+        with zipfile.ZipFile("Cloud_fonts.zip","r") as zip_fonts:
             zip_fonts.extractall(os.getcwd())
-        with zipfile.ZipFile("Deng.zip","r") as zip_deng:
-            zip_deng.extractall(os.path.join(os.getcwd(), "Fonts"))
         keep_alive()
-        print(os.listdir(os.path.join(os.getcwd(), 'Fonts')))
+        print(os.listdir(os.getcwd())
         asyncio.run(main())
     except KeyboardInterrupt:
         print('Завершение Бота')
