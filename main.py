@@ -1,7 +1,6 @@
 import os
 import logging
 import datetime 
-import xlwings as xw
 from spire.xls import *
 from spire.xls.common import *
 from openpyxl import load_workbook
@@ -168,12 +167,6 @@ async def edit_dz(day, number, group, subject, text):
                 ws2.cell(row=new_cell.row, column=new_cell.column).value = f"{value}\n{text}"
 
     wb.save(filename)
-    with xw.App(visible=False) as app:
-        wb2 = xw.Book(filename)
-        ws3 = wb.sheets[f"week-{week_number}"]
-        ws3.autofit()
-        wb2.save()
-        wb2.close()
     await after_text_editing(number)
 
 
