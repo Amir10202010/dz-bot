@@ -160,14 +160,12 @@ async def edit_dz(day, number, group, subject, text):
             if str(value) == subject:
                 new_cell = await edit_merged_cell(ws, cell, ws2)
                 ws2.cell(row=new_cell.row, column=new_cell.column).value = f"{value}\n{text}"
-                ws2.column_dimensions[new_cell.column].auto_size = True
     else:
         for cell in ws[day]:
             value = await parser_merged_cell(ws, cell)
             if str(value) == subject:
                 new_cell = await edit_merged_cell(ws, cell, ws2)
                 ws2.cell(row=new_cell.row, column=new_cell.column).value = f"{value}\n{text}"
-                ws2.column_dimensions[new_cell.column].auto_size = True
 
     wb.save(filename)
     with xw.App(visible=False) as app:
