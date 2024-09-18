@@ -36,7 +36,7 @@ async def dz(callback: CallbackQuery):
         await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     except Exception as e:
         await main.create_image_from_excel(users[callback.from_user.id]['week'])
-        await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
+        
 
 
 @router.callback_query(F.data == '+week')
@@ -77,7 +77,7 @@ async def plus_week(callback: CallbackQuery):
         if users[callback.from_user.id]['week'] < 1:
             users[callback.from_user.id]['week'] += 1
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
-        await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
+        
 
 
 @router.callback_query(F.data == '-week')
@@ -118,7 +118,7 @@ async def minus_week(callback: CallbackQuery):
         if users[callback.from_user.id]['week'] > -1:
             users[callback.from_user.id]['week'] -= 1
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
-        await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
+        
 
 
 @router.callback_query(F.data == '1')
@@ -277,4 +277,4 @@ async def update_dz(message: Message):
         group = users[message.from_user.id]['group']
         subject = users[message.from_user.id]['subject']
         await main.edit_dz(day, number, group, subject, new_value)
-        await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
+        
