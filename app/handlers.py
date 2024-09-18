@@ -74,7 +74,7 @@ async def plus_week(callback: CallbackQuery):
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     except Exception as e:
-        if users[callback.from_user.id]['week'] < 1
+        if users[callback.from_user.id]['week'] < 1:
             users[callback.from_user.id]['week'] += 1
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
@@ -115,7 +115,7 @@ async def minus_week(callback: CallbackQuery):
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result }', reply_markup=dzkb)
     except Exception as e:
-        if users[callback.from_user.id]['week'] > -1
+        if users[callback.from_user.id]['week'] > -1:
             users[callback.from_user.id]['week'] -= 1
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
