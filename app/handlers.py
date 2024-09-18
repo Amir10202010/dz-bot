@@ -35,7 +35,7 @@ async def dz(callback: CallbackQuery):
         dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
         await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     except Exception as e:
-        print(f'An error occurred: {e}')
+        await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
 
 
@@ -74,7 +74,7 @@ async def plus_week(callback: CallbackQuery):
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     except Exception as e:
-        print(f'An error occurred: {e}')
+        await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
 
 
@@ -113,7 +113,7 @@ async def minus_week(callback: CallbackQuery):
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result }', reply_markup=dzkb)
     except Exception as e:
-        print(f'An error occurred: {e}')
+        await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
 
 
@@ -144,7 +144,7 @@ async def first_group(callback: CallbackQuery):
             else:
                 await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     except Exception as e:
-        print(f'An error occurred: {e}')
+        await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
 
 
@@ -175,7 +175,7 @@ async def second_group(callback: CallbackQuery):
             else:
                 await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     except Exception as e:
-        print(f'An error occurred: {e}')
+        await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
 
 
@@ -203,7 +203,7 @@ async def plus_day(callback: CallbackQuery):
             else:
                 await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     except Exception as e:
-        print(f'An error occurred: {e}')
+        await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
 
 
@@ -231,7 +231,7 @@ async def minus_day(callback: CallbackQuery):
             else:
                 await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     except Exception as e:
-        print(f'An error occurred: {e}')
+        await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
 
 
@@ -287,5 +287,10 @@ async def update_dz(message: Message):
         else:
             await message.answer_photo(photo=FSInputFile(path='photo1.jpg'), caption=f'<b>{message.from_user.first_name}</b>, я нечего не понял\nЭто бот чтобы узнать домашку 📖✍️', reply_markup=kb.start, parse_mode='html')
     except Exception as e:
-        print(f'An error occurred: {e}')
+        new_value = message.text
+        day = users[message.from_user.id]['day']
+        number = users[message.from_user.id]['week']
+        group = users[message.from_user.id]['group']
+        subject = users[message.from_user.id]['subject']
+        await main.edit_dz(day, number, group, subject, new_value)
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
