@@ -91,7 +91,7 @@ def after_text_editing(number):
     process_excel_file(number)
     
     workbook = Workbook()
-    font_dir = os.path.join(os.getcwd(), 'Fonts')
+    font_dir = os.path.join(os.getcwd(), 'Cloud_fonts')
     workbook.CustomFontFileDirectory = [(font_dir)]
     workbook.LoadFromFile('dz.xlsx')
     sheet = workbook.Worksheets[f"week-{week_number}"]
@@ -110,7 +110,7 @@ def create_image_from_excel(number):
     process_excel_file(number)
     
     workbook = Workbook()
-    font_dir = os.path.join(os.getcwd(), 'Fonts')
+    font_dir = os.path.join(os.getcwd(), 'Cloud_fonts')
     workbook.CustomFontFileDirectory = [(font_dir)]
     workbook.LoadFromFile('dz.xlsx')
     sheet = workbook.Worksheets[f"week-{week_number}"]
