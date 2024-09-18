@@ -74,7 +74,9 @@ async def plus_week(callback: CallbackQuery):
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     except Exception as e:
-        await main.create_image_from_excel(users[callback.from_user.id]['week'])
+        if users[callback.from_user.id]['week'] < 1
+            users[callback.from_user.id]['week'] += 1
+            await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
 
 
@@ -113,138 +115,120 @@ async def minus_week(callback: CallbackQuery):
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result }', reply_markup=dzkb)
     except Exception as e:
-        await main.create_image_from_excel(users[callback.from_user.id]['week'])
+        if users[callback.from_user.id]['week'] > -1
+            users[callback.from_user.id]['week'] -= 1
+            await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
 
 
 @router.callback_query(F.data == '1')
 async def first_group(callback: CallbackQuery):
-    try:
-        if users[callback.from_user.id]['group'] == 1:
-            await callback.answer(text='Вы уже выбрали 1 группу 🚫', show_alert=True)
+    if users[callback.from_user.id]['group'] == 1:
+        await callback.answer(text='Вы уже выбрали 1 группу 🚫', show_alert=True)
+    else:
+        if callback.from_user.id == ADMIN_ID:
+            dzkb = kb.admin_dz
         else:
-            if callback.from_user.id == ADMIN_ID:
-                dzkb = kb.admin_dz
-            else:
-                dzkb = kb.dz
-            users[callback.from_user.id]['group'] = 1
-            await main.create_image_from_excel(users[callback.from_user.id]['week'])
-            await callback.answer()
-            week_number = await main.get_week_number()
-            await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
-            day = users[callback.from_user.id]['day']
-            week = users[callback.from_user.id]['week']
-            group = users[callback.from_user.id]['group']
-            dz_day_result = await main.dz_day(day, week)
-            dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
-            if users[callback.from_user.id]['week'] == 0:
-                await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-            elif users[callback.from_user.id]['week'] == 1:
-                await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-            else:
-                await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-    except Exception as e:
+            dzkb = kb.dz
+        users[callback.from_user.id]['group'] = 1
         await main.create_image_from_excel(users[callback.from_user.id]['week'])
-        await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
+        await callback.answer()
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = await main.dz_day(day, week)
+        dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
+        if users[callback.from_user.id]['week'] == 0:
+            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
+        elif users[callback.from_user.id]['week'] == 1:
+            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
+        else:
+            await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
 
 
 @router.callback_query(F.data == '2')
 async def second_group(callback: CallbackQuery):
-    try:
-        if users[callback.from_user.id]['group'] == 2:
-            await callback.answer(text='Вы уже выбрали 2 группу 🚫', show_alert=True)
+    if users[callback.from_user.id]['group'] == 2:
+        await callback.answer(text='Вы уже выбрали 2 группу 🚫', show_alert=True)
+    else:
+        if callback.from_user.id == ADMIN_ID:
+            dzkb = kb.admin_dz
         else:
-            if callback.from_user.id == ADMIN_ID:
-                dzkb = kb.admin_dz
-            else:
-                dzkb = kb.dz
-            users[callback.from_user.id]['group'] = 2
-            await main.create_image_from_excel(users[callback.from_user.id]['week'])
-            await callback.answer()
-            week_number = await main.get_week_number()
-            await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
-            day = users[callback.from_user.id]['day']
-            week = users[callback.from_user.id]['week']
-            group = users[callback.from_user.id]['group']
-            dz_day_result = await main.dz_day(day, week)
-            dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
-            if users[callback.from_user.id]['week'] == 0:
-                await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-            elif users[callback.from_user.id]['week'] == 1:
-                await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-            else:
-                await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-    except Exception as e:
-        await main.create_image_from_excel(users[callback.from_user.id]['week'])
-        await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
+            dzkb = kb.dz
+        users[callback.from_user.id]['group'] = 2
+        await callback.answer()
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = await main.dz_day(day, week)
+        dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
+        if users[callback.from_user.id]['week'] == 0:
+            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
+        elif users[callback.from_user.id]['week'] == 1:
+            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
+        else:
+            await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
 
 
 @router.callback_query(F.data == '+day')
 async def plus_day(callback: CallbackQuery):
-    try:
-        if users[callback.from_user.id]['day'] == 4:
-            await callback.answer(text='Вы на последней дне, дальше идти вы не можете 🚫', show_alert=True)
+    if users[callback.from_user.id]['day'] == 4:
+        await callback.answer(text='Вы на последней дне, дальше идти вы не можете 🚫', show_alert=True)
+    else:
+        if callback.from_user.id == ADMIN_ID:
+            dzkb = kb.admin_dz
         else:
-            if callback.from_user.id == ADMIN_ID:
-                dzkb = kb.admin_dz
-            else:
-                dzkb = kb.dz
-            users[callback.from_user.id]['day'] += 1
-            await callback.answer()
-            day = users[callback.from_user.id]['day']
-            week = users[callback.from_user.id]['week']
-            group = users[callback.from_user.id]['group']
-            dz_day_result = await main.dz_day(day, week)
-            dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
-            if users[callback.from_user.id]['week'] == 0:
-                await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-            elif users[callback.from_user.id]['week'] == 1:
-                await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-            else:
-                await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-    except Exception as e:
-        await main.create_image_from_excel(users[callback.from_user.id]['week'])
-        await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
+            dzkb = kb.dz
+        users[callback.from_user.id]['day'] += 1
+        await callback.answer()
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = await main.dz_day(day, week)
+        dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
+        if users[callback.from_user.id]['week'] == 0:
+            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
+        elif users[callback.from_user.id]['week'] == 1:
+            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
+        else:
+            await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
 
 
 @router.callback_query(F.data == '-day')
 async def minus_day(callback: CallbackQuery):
-    try:
-        if users[callback.from_user.id]['day'] == 0:
-            await callback.answer(text='Вы на последней дне, дальше идти вы не можете 🚫', show_alert=True)
+    if users[callback.from_user.id]['day'] == 0:
+        await callback.answer(text='Вы на последней дне, дальше идти вы не можете 🚫', show_alert=True)
+    else:
+        if callback.from_user.id == ADMIN_ID:
+            dzkb = kb.admin_dz
         else:
-            if callback.from_user.id == ADMIN_ID:
-                dzkb = kb.admin_dz
-            else:
-                dzkb = kb.dz
-            users[callback.from_user.id]['day'] -= 1
-            await callback.answer()
-            day = users[callback.from_user.id]['day']
-            week = users[callback.from_user.id]['week']
-            group = users[callback.from_user.id]['group']
-            dz_day_result = await main.dz_day(day, week)
-            dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
-            if users[callback.from_user.id]['week'] == 0:
-                await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-            elif users[callback.from_user.id]['week'] == 1:
-                await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-            else:
-                await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-    except Exception as e:
-        await main.create_image_from_excel(users[callback.from_user.id]['week'])
-        await callback.answer(text='Error occurred while processing your request. Подожди пж 2-3 сек и можешь нажимать', show_alert=True)
+            dzkb = kb.dz
+        users[callback.from_user.id]['day'] -= 1
+        await callback.answer()
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = await main.dz_day(day, week)
+        dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
+        if users[callback.from_user.id]['week'] == 0:
+            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
+        elif users[callback.from_user.id]['week'] == 1:
+            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
+        else:
+            await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
 
 
 @router.callback_query(F.data == 'help')
 async def help(callback: CallbackQuery):
+    print(users)
     await callback.answer()
     await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='photo2.jpg')))
     await callback.message.edit_caption(caption='Тут все просто,\nУзнаешь дз класса 9E НИШ ФМН Астана 🏫.\nCreator - @Idk_Amir', reply_markup=kb.back_help)
-    print(users)
 
 
 @router.callback_query(F.data == 'back_help')
 async def back(callback: CallbackQuery):
+    print(users)
     await callback.answer()
     await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='photo1.jpg')))
     await callback.message.edit_caption(caption=f'<b>{callback.from_user.first_name}</b>, можешь посмотреть и узнать домашку 🤓', reply_markup=kb.start, parse_mode='html')
