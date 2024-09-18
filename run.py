@@ -20,7 +20,7 @@ if __name__ == '__main__':
         with zipfile.ZipFile("Cloud_fonts.zip","r") as zip_fonts:
             zip_fonts.extractall(os.getcwd())
         keep_alive()
-        print(os.listdir(os.getcwd())
+        print(os.listdir(os.getcwd()))
         asyncio.run(main())
     except KeyboardInterrupt:
         print('Завершение Бота')
