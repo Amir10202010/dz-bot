@@ -61,7 +61,7 @@ async def plus_week(callback: CallbackQuery):
             dz_day_result = await main.dz_day(day, week)
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-        except Exception as e::
+        except Exception as e:
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
     else:
         users[callback.from_user.id]['week'] += 1
@@ -76,7 +76,7 @@ async def plus_week(callback: CallbackQuery):
             dz_day_result = await main.dz_day(day, week)
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-        except Exception as e::
+        except Exception as e:
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
         
 
@@ -103,7 +103,7 @@ async def minus_week(callback: CallbackQuery):
             dz_day_result = await main.dz_day(day, week)
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-        except Exception as e::
+        except Exception as e:
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
     else:
         users[callback.from_user.id]['week'] -= 1
@@ -118,7 +118,7 @@ async def minus_week(callback: CallbackQuery):
             dz_day_result = await main.dz_day(day, week)
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на прошлою неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-        except Exception as e::
+        except Exception as e:
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
         
 
