@@ -26,7 +26,7 @@ async def dz(callback: CallbackQuery):
     await main.create_image_from_excel(users[callback.from_user.id]['week'])
     await callback.answer()
     week_number = await main.get_week_number()
-    await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{week_number + users[callback.from_user.id]['week']}.jpg')))
+    await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
     day = users[callback.from_user.id]['day']
     week = users[callback.from_user.id]['week']
     group = users[callback.from_user.id]['group']
@@ -49,7 +49,7 @@ async def plus_week(callback: CallbackQuery):
         await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
         week_number = await main.get_week_number()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{week_number + users[callback.from_user.id]['week']}.jpg')))
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
         day = users[callback.from_user.id]['day']
         week = users[callback.from_user.id]['week']
         group = users[callback.from_user.id]['group']
@@ -61,7 +61,7 @@ async def plus_week(callback: CallbackQuery):
         await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
         week_number = await main.get_week_number()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{week_number + users[callback.from_user.id]['week']}.jpg')))
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
         day = users[callback.from_user.id]['day']
         week = users[callback.from_user.id]['week']
         group = users[callback.from_user.id]['group']
@@ -84,7 +84,7 @@ async def minus_week(callback: CallbackQuery):
         await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
         week_number = await main.get_week_number()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{week_number + users[callback.from_user.id]['week']}.jpg')))
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
         day = users[callback.from_user.id]['day']
         week = users[callback.from_user.id]['week']
         group = users[callback.from_user.id]['group']
@@ -96,7 +96,7 @@ async def minus_week(callback: CallbackQuery):
         await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
         week_number = await main.get_week_number()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{week_number + users[callback.from_user.id]['week']}.jpg')))
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
         day = users[callback.from_user.id]['day']
         week = users[callback.from_user.id]['week']
         group = users[callback.from_user.id]['group']
@@ -118,7 +118,7 @@ async def first_group(callback: CallbackQuery):
         await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
         week_number = await main.get_week_number()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{week_number + users[callback.from_user.id]['week']}.jpg')))
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
         day = users[callback.from_user.id]['day']
         week = users[callback.from_user.id]['week']
         group = users[callback.from_user.id]['group']
@@ -145,7 +145,7 @@ async def second_group(callback: CallbackQuery):
         await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
         week_number = await main.get_week_number()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f'week-{week_number + users[callback.from_user.id]['week']}.jpg')))
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
         day = users[callback.from_user.id]['day']
         week = users[callback.from_user.id]['week']
         group = users[callback.from_user.id]['group']
