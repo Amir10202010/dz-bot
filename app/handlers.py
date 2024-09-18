@@ -41,16 +41,16 @@ async def dz(callback: CallbackQuery):
 
 @router.callback_query(F.data == '+week')
 async def plus_week(callback: CallbackQuery):
-    try:
-        if callback.from_user.id == ADMIN_ID:
-            dzkb = kb.admin_dz
-        else:
-            dzkb = kb.dz
-        users[callback.from_user.id]['day'] = 0
-        if users[callback.from_user.id]['week'] == 1:
-            await callback.answer(text='Вы на последней неделе, дальше идти вы не можете 🚫', show_alert=True)
-        elif users[callback.from_user.id]['week'] == -1:
-            users[callback.from_user.id]['week'] += 1
+    if callback.from_user.id == ADMIN_ID:
+        dzkb = kb.admin_dz
+    else:
+        dzkb = kb.dz
+    users[callback.from_user.id]['day'] = 0
+    if users[callback.from_user.id]['week'] == 1:
+        await callback.answer(text='Вы на последней неделе, дальше идти вы не можете 🚫', show_alert=True)
+    elif users[callback.from_user.id]['week'] == -1:
+        users[callback.from_user.id]['week'] += 1
+        try:
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
             await callback.answer()
             week_number = await main.get_week_number()
@@ -61,8 +61,11 @@ async def plus_week(callback: CallbackQuery):
             dz_day_result = await main.dz_day(day, week)
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-        else:
-            users[callback.from_user.id]['week'] += 1
+        except Exception as e::
+            await main.create_image_from_excel(users[callback.from_user.id]['week'])
+    else:
+        users[callback.from_user.id]['week'] += 1
+        try:
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
             await callback.answer()
             week_number = await main.get_week_number()
@@ -73,25 +76,23 @@ async def plus_week(callback: CallbackQuery):
             dz_day_result = await main.dz_day(day, week)
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-    except Exception as e:
-        if users[callback.from_user.id]['week'] < 1:
-            users[callback.from_user.id]['week'] += 1
+        except Exception as e::
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
         
 
 
 @router.callback_query(F.data == '-week')
 async def minus_week(callback: CallbackQuery):
-    try:
-        if callback.from_user.id == ADMIN_ID:
-            dzkb = kb.admin_dz
-        else:
-            dzkb = kb.dz
-        users[callback.from_user.id]['day'] = 4
-        if users[callback.from_user.id]['week'] == -1:
-            await callback.answer(text='Вы на последней неделе, дальше идти вы не можете 🚫', show_alert=True)
-        elif users[callback.from_user.id]['week'] == 1:
-            users[callback.from_user.id]['week'] -= 1
+    if callback.from_user.id == ADMIN_ID:
+        dzkb = kb.admin_dz
+    else:
+        dzkb = kb.dz
+    users[callback.from_user.id]['day'] = 4
+    if users[callback.from_user.id]['week'] == -1:
+        await callback.answer(text='Вы на последней неделе, дальше идти вы не можете 🚫', show_alert=True)
+    elif users[callback.from_user.id]['week'] == 1:
+        users[callback.from_user.id]['week'] -= 1
+        try:
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
             await callback.answer()
             week_number = await main.get_week_number()
@@ -102,8 +103,11 @@ async def minus_week(callback: CallbackQuery):
             dz_day_result = await main.dz_day(day, week)
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
             await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-        else:
-            users[callback.from_user.id]['week'] -= 1
+        except Exception as e::
+            await main.create_image_from_excel(users[callback.from_user.id]['week'])
+    else:
+        users[callback.from_user.id]['week'] -= 1
+        try:
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
             await callback.answer()
             week_number = await main.get_week_number()
@@ -113,10 +117,8 @@ async def minus_week(callback: CallbackQuery):
             group = users[callback.from_user.id]['group']
             dz_day_result = await main.dz_day(day, week)
             dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
-            await callback.message.edit_caption(caption=f'Вот д/з на прошлую неделю {dz_day_result} {dz_for_day_result }', reply_markup=dzkb)
-    except Exception as e:
-        if users[callback.from_user.id]['week'] > -1:
-            users[callback.from_user.id]['week'] -= 1
+            await callback.message.edit_caption(caption=f'Вот д/з на прошлою неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
+        except Exception as e::
             await main.create_image_from_excel(users[callback.from_user.id]['week'])
         
 
@@ -257,13 +259,13 @@ async def select_subject(callback: CallbackQuery):
 
 @router.message(F.text)
 async def update_dz(message: Message):
+    new_value = message.text
+    day = users[message.from_user.id]['day']
+    number = users[message.from_user.id]['week']
+    group = users[message.from_user.id]['group']
+    subject = users[message.from_user.id]['subject']
     try:
         if message.from_user.id == ADMIN_ID:
-            new_value = message.text
-            day = users[message.from_user.id]['day']
-            number = users[message.from_user.id]['week']
-            group = users[message.from_user.id]['group']
-            subject = users[message.from_user.id]['subject']
             week_number = await main.get_week_number()
             print(users)
             await main.edit_dz(day, number, group, subject, new_value)
@@ -271,10 +273,5 @@ async def update_dz(message: Message):
         else:
             await message.answer_photo(photo=FSInputFile(path='photo1.jpg'), caption=f'<b>{message.from_user.first_name}</b>, я нечего не понял\nЭто бот чтобы узнать домашку 📖✍️', reply_markup=kb.start, parse_mode='html')
     except Exception as e:
-        new_value = message.text
-        day = users[message.from_user.id]['day']
-        number = users[message.from_user.id]['week']
-        group = users[message.from_user.id]['group']
-        subject = users[message.from_user.id]['subject']
         await main.edit_dz(day, number, group, subject, new_value)
         
