@@ -81,44 +81,6 @@ async def process_excel_file(number):
         wb.save(filename)
 
 
-async def after_text_editing(number):
-    week_number = await get_week_number() + number
-    img_filename = f"week-{week_number}.jpg"
-
-    if os.path.exists(img_filename):
-        os.remove(img_filename)
-
-    await process_excel_file(number)
-    
-    workbook = Workbook()
-    font_dir = os.path.join(os.getcwd(), 'Cloud_fonts')
-    workbook.CustomFontFileDirectory = [(font_dir)]
-    workbook.LoadFromFile('dz.xlsx')
-    sheet = workbook.Worksheets[f"week-{week_number}"]
-    image = sheet.ToImage(1, 1, 10, 9)
-    image.Save(img_filename)
-    workbook.Dispose()
-
-
-async def create_image_from_excel(number):
-    week_number = await get_week_number() + number
-    img_filename = f"week-{week_number}.jpg"
-
-    if os.path.exists(img_filename):
-        return
-        
-    await process_excel_file(number)
-    
-    workbook = Workbook()
-    font_dir = os.path.join(os.getcwd(), 'Cloud_fonts')
-    workbook.CustomFontFileDirectory = [(font_dir)]
-    workbook.LoadFromFile('dz.xlsx')
-    sheet = workbook.Worksheets[f"week-{week_number}"]
-    image = sheet.ToImage(1, 1, 10, 9)
-    image.Save(img_filename)
-    workbook.Dispose()
-
-
 async def dz_for_day(day, number, group):
     day = (day + 1) * 2
     filename = f"dz.xlsx"
@@ -167,7 +129,6 @@ async def edit_dz(day, number, group, subject, text):
                 ws2.cell(row=new_cell.row, column=new_cell.column).value = f"{value}\n{text}"
 
     wb.save(filename)
-    await after_text_editing(number)
 
 
 async def subjects_for_day(day, number, group):
