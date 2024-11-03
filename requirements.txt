@@ -3,4 +3,3 @@ requests
 openpyxl 
 aiogram 
 asyncio
-spire.xls
