@@ -19,23 +19,19 @@ async def start(message: Message):
 
 @router.callback_query(F.data == 'dz')
 async def dz(callback: CallbackQuery):
-    try:
-        if callback.from_user.id == ADMIN_ID:
-            dzkb = kb.admin_dz
-        else:
-            dzkb = kb.dz
-        await main.create_image_from_excel(users[callback.from_user.id]['week'])
-        await callback.answer()
-        week_number = await main.get_week_number()
-        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
-        day = users[callback.from_user.id]['day']
-        week = users[callback.from_user.id]['week']
-        group = users[callback.from_user.id]['group']
-        dz_day_result = await main.dz_day(day, week)
-        dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
-        await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-    except Exception as e:
-        await main.create_image_from_excel(users[callback.from_user.id]['week'])
+    if callback.from_user.id == ADMIN_ID:
+        dzkb = kb.admin_dz
+    else:
+        dzkb = kb.dz
+    await callback.answer()
+    week_number = await main.get_week_number()
+    await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"photo.jpg")))
+    day = users[callback.from_user.id]['day']
+    week = users[callback.from_user.id]['week']
+    group = users[callback.from_user.id]['group']
+    dz_day_result = await main.dz_day(day, week)
+    dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
+    await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         
 
 
@@ -50,34 +46,26 @@ async def plus_week(callback: CallbackQuery):
         await callback.answer(text='Вы на последней неделе, дальше идти вы не можете 🚫', show_alert=True)
     elif users[callback.from_user.id]['week'] == -1:
         users[callback.from_user.id]['week'] += 1
-        try:
-            await main.create_image_from_excel(users[callback.from_user.id]['week'])
-            await callback.answer()
-            week_number = await main.get_week_number()
-            await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
-            day = users[callback.from_user.id]['day']
-            week = users[callback.from_user.id]['week']
-            group = users[callback.from_user.id]['group']
-            dz_day_result = await main.dz_day(day, week)
-            dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
-            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-        except Exception as e:
-            await main.create_image_from_excel(users[callback.from_user.id]['week'])
+        await callback.answer()
+        week_number = await main.get_week_number()
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = await main.dz_day(day, week)
+        dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
+        await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     else:
         users[callback.from_user.id]['week'] += 1
-        try:
-            await main.create_image_from_excel(users[callback.from_user.id]['week'])
-            await callback.answer()
-            week_number = await main.get_week_number()
-            await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
-            day = users[callback.from_user.id]['day']
-            week = users[callback.from_user.id]['week']
-            group = users[callback.from_user.id]['group']
-            dz_day_result = await main.dz_day(day, week)
-            dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
-            await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-        except Exception as e:
-            await main.create_image_from_excel(users[callback.from_user.id]['week'])
+        await callback.answer()
+        week_number = await main.get_week_number()
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = await main.dz_day(day, week)
+        dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
+        await callback.message.edit_caption(caption=f'Вот д/з на следующую неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         
 
 
@@ -92,34 +80,26 @@ async def minus_week(callback: CallbackQuery):
         await callback.answer(text='Вы на последней неделе, дальше идти вы не можете 🚫', show_alert=True)
     elif users[callback.from_user.id]['week'] == 1:
         users[callback.from_user.id]['week'] -= 1
-        try:
-            await main.create_image_from_excel(users[callback.from_user.id]['week'])
-            await callback.answer()
-            week_number = await main.get_week_number()
-            await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
-            day = users[callback.from_user.id]['day']
-            week = users[callback.from_user.id]['week']
-            group = users[callback.from_user.id]['group']
-            dz_day_result = await main.dz_day(day, week)
-            dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
-            await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-        except Exception as e:
-            await main.create_image_from_excel(users[callback.from_user.id]['week'])
+        await callback.answer()
+        week_number = await main.get_week_number()
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = await main.dz_day(day, week)
+        dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
+        await callback.message.edit_caption(caption=f'Вот д/з на эту неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
     else:
         users[callback.from_user.id]['week'] -= 1
-        try:
-            await main.create_image_from_excel(users[callback.from_user.id]['week'])
-            await callback.answer()
-            week_number = await main.get_week_number()
-            await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
-            day = users[callback.from_user.id]['day']
-            week = users[callback.from_user.id]['week']
-            group = users[callback.from_user.id]['group']
-            dz_day_result = await main.dz_day(day, week)
-            dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
-            await callback.message.edit_caption(caption=f'Вот д/з на прошлою неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
-        except Exception as e:
-            await main.create_image_from_excel(users[callback.from_user.id]['week'])
+        await callback.answer()
+        week_number = await main.get_week_number()
+        await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"week-{week_number + users[callback.from_user.id]['week']}.jpg")))
+        day = users[callback.from_user.id]['day']
+        week = users[callback.from_user.id]['week']
+        group = users[callback.from_user.id]['group']
+        dz_day_result = await main.dz_day(day, week)
+        dz_for_day_result = await main.dz_for_day(day=day, number=week, group=group)
+        await callback.message.edit_caption(caption=f'Вот д/з на прошлою неделю {dz_day_result} {dz_for_day_result}', reply_markup=dzkb)
         
 
 
@@ -133,7 +113,6 @@ async def first_group(callback: CallbackQuery):
         else:
             dzkb = kb.dz
         users[callback.from_user.id]['group'] = 1
-        await main.create_image_from_excel(users[callback.from_user.id]['week'])
         await callback.answer()
         day = users[callback.from_user.id]['day']
         week = users[callback.from_user.id]['week']
