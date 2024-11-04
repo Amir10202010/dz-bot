@@ -25,7 +25,7 @@ async def dz(callback: CallbackQuery):
         dzkb = kb.dz
     await callback.answer()
     week_number = await main.get_week_number()
-    await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path=f"photo.jpg")))
+    await callback.message.edit_media(InputMediaPhoto(media=FSInputFile(path='photo1.jpg')))
     day = users[callback.from_user.id]['day']
     week = users[callback.from_user.id]['week']
     group = users[callback.from_user.id]['group']
