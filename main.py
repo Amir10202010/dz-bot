@@ -1,8 +1,6 @@
 import os
 import logging
-import datetime 
-from spire.xls import *
-from spire.xls.common import *
+import datetime
 from openpyxl import load_workbook
 from openpyxl.cell import MergedCell
 from datetime import datetime, timedelta, date
